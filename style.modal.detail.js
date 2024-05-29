@@ -1,31 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('modal');
-    const closeModal = document.querySelector('.close');
-    const detailButtons = document.querySelectorAll('.detail-btn');
+// Ambil modal
+var modal = document.getElementById("myModal");
 
-    detailButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const kodeProduk = this.getAttribute('data-kode');
+// Ambil elemen gambar dan elemen modal
+var modalImg = document.getElementById("modalImg");
 
-            
-            fetch(`modal.detail.php?kode_produk=${kodeProduk}`)
-                .then(response => response.text())
-                .then(data => {
-                    
-                    document.querySelector('.modal-content .table-container').innerHTML = data;
-                    modal.style.display = 'block';
-                })
-                .catch(error => console.error('Error fetching product details:', error));
-        });
-    });
+// Fungsi untuk menampilkan modal dengan gambar yang di-klik
+function showModal(imgElement) {
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+}
 
-    closeModal.addEventListener('click', function () {
-        modal.style.display = 'none';
-    });
+// Ambil elemen close dan tambahkan event listener untuk menutup modal
+var span = document.getElementsByClassName("close-img")[0];
 
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Tambahkan event listener untuk menutup modal jika area di luar modal diklik
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
